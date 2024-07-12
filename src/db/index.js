@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://127.0.0.1:27017/db");
-
+// mongoose.connect("mongodb://127.0.0.1:27017/db");
+mongoose.connect("mongodb+srv://mangodb:mangodb@cluster0.60rtnqc.mongodb.net/db");
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "connection error:"));
