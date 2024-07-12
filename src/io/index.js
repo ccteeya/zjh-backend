@@ -223,7 +223,7 @@ function ioListen(io) {
         }
         infoData.pokerData[id] = tempArr;
         infoData.publicRooms[idx].user.forEach((item) => {
-          item.point = -1;
+          item.point = -2; //下底
         });
         if (len >= 2) {
           infoData.publicRooms[idx].start = true;
@@ -267,7 +267,13 @@ function ioListen(io) {
       infoData.publicRooms[idx].user[loserIndex].out = true;
 
       const base = infoData.publicRooms[idx].base;
-      infoData.publicRooms[idx].user[userIdx].point -= base;
+      if (infoData.publicRooms[idx].user[userIdx].watched){
+        infoData.publicRooms[idx].user[userIdx].point -= base;
+      } else{
+        infoData.publicRooms[idx].user[userIdx].point -= parseInt(base / 2);
+      }
+      
+      
       checkFn({ idx, userIdx, id });
       socket.server.in(id).emit("update", infoData.publicRooms[idx]);
     });
